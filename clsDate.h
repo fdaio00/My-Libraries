@@ -32,7 +32,7 @@ public:
 
 	clsDate(string sDate)
 	{
-		
+
 		vector <string> vDate;
 		vDate = clsString::Split(sDate, "/");
 
@@ -44,18 +44,18 @@ public:
 
 	clsDate(short Day, short Month, short Year)
 	{
-		
+
 		_Day = Day;
 		_Month = Month;
 		_Year = Year;
-		
+
 	}
 
 	clsDate(short DateOrderInYear, short Year)
 	{
 		//This will construct a date by date order in year
 		clsDate Date1 = GetDateFromDayOrderInYear(DateOrderInYear, Year);
-	    _Day = Date1.Day;
+		_Day = Date1.Day;
 		_Month = Date1.Month;
 		_Year = Date1.Year;
 	}
@@ -88,7 +88,7 @@ public:
 	}
 	__declspec(property(get = GetYear, put = SetYear)) short Year;
 
-   void Print()
+	void Print()
 	{
 		cout << DateToString() << endl;
 	}
@@ -98,7 +98,7 @@ public:
 		//system date
 		time_t t = time(0);
 		tm* now = localtime(&t);
-		
+
 		short Day, Month, Year;
 
 		Year = now->tm_year + 1900;
@@ -108,7 +108,29 @@ public:
 		return clsDate(Day, Month, Year);
 	}
 
-    static	bool IsValidDate(clsDate Date)
+	static string GetSystemDateTimeString()
+	{
+		//system datetime string
+		time_t t = time(0);
+		tm* now = localtime(&t);
+
+		short Day, Month, Year, Hour, Minute, Second;
+
+		Year = now->tm_year + 1900;
+		Month = now->tm_mon + 1;
+		Day = now->tm_mday;
+		Hour = now->tm_hour;
+		Minute = now->tm_min;
+		Second = now->tm_sec;
+
+		return (to_string(Day) + "/" + to_string(Month) + "/"
+			+ to_string(Year) + " - "
+			+ to_string(Hour) + ":" + to_string(Minute)
+			+ ":" + to_string(Second));
+
+	}
+
+	static	bool IsValidDate(clsDate Date)
 	{
 
 		if (Date.Day < 1 || Date.Day>31)
@@ -139,7 +161,7 @@ public:
 		return true;
 
 	}
-	
+
 	bool IsValid()
 	{
 		return IsValidDate(*this);
@@ -150,7 +172,7 @@ public:
 		return  to_string(Date.Day) + "/" + to_string(Date.Month) + "/" + to_string(Date.Year);
 	}
 
-    string DateToString()
+	string DateToString()
 	{
 		return  DateToString(*this);
 	}
@@ -555,7 +577,7 @@ public:
 		*this = AddOneDay(*this);
 	}
 
-	static void  SwapDates(clsDate & Date1, clsDate & Date2)
+	static void  SwapDates(clsDate& Date1, clsDate& Date2)
 	{
 
 		clsDate TempDate;
@@ -599,7 +621,7 @@ public:
 	}
 	//above no need to have nonstatic function for the object because it does not depend on any data from it.
 
-	static clsDate IncreaseDateByOneWeek(clsDate & Date)
+	static clsDate IncreaseDateByOneWeek(clsDate& Date)
 	{
 
 		for (int i = 1; i <= 7; i++)
@@ -708,7 +730,7 @@ public:
 	{
 		Date.Year += Years;
 		return Date;
-		
+
 	}
 
 	void IncreaseDateByXYears(short Years)
@@ -793,7 +815,7 @@ public:
 		DecreaseDateByOneDay(*this);
 	}
 
-	static clsDate DecreaseDateByOneWeek(clsDate &Date)
+	static clsDate DecreaseDateByOneWeek(clsDate& Date)
 	{
 
 		for (int i = 1; i <= 7; i++)
@@ -809,7 +831,7 @@ public:
 		DecreaseDateByOneWeek(*this);
 	}
 
-	static clsDate DecreaseDateByXWeeks(short Weeks, clsDate &Date)
+	static clsDate DecreaseDateByXWeeks(short Weeks, clsDate& Date)
 	{
 
 		for (short i = 1; i <= Weeks; i++)
@@ -821,10 +843,10 @@ public:
 
 	void DecreaseDateByXWeeks(short Weeks)
 	{
-		DecreaseDateByXWeeks(Weeks ,*this);
+		DecreaseDateByXWeeks(Weeks, *this);
 	}
 
-	static clsDate DecreaseDateByOneMonth(clsDate &Date)
+	static clsDate DecreaseDateByOneMonth(clsDate& Date)
 	{
 
 		if (Date.Month == 1)
@@ -854,7 +876,7 @@ public:
 		DecreaseDateByOneMonth(*this);
 	}
 
-	static clsDate DecreaseDateByXDays(short Days, clsDate &Date)
+	static clsDate DecreaseDateByXDays(short Days, clsDate& Date)
 	{
 
 		for (short i = 1; i <= Days; i++)
@@ -869,7 +891,7 @@ public:
 		DecreaseDateByXDays(Days, *this);
 	}
 
-	static clsDate DecreaseDateByXMonths(short Months, clsDate &Date)
+	static clsDate DecreaseDateByXMonths(short Months, clsDate& Date)
 	{
 
 		for (short i = 1; i <= Months; i++)
@@ -881,10 +903,10 @@ public:
 
 	void DecreaseDateByXMonths(short Months)
 	{
-		DecreaseDateByXMonths( Months, *this);
+		DecreaseDateByXMonths(Months, *this);
 	}
 
-	static clsDate DecreaseDateByOneYear(clsDate &Date)
+	static clsDate DecreaseDateByOneYear(clsDate& Date)
 	{
 
 		Date.Year--;
@@ -896,7 +918,7 @@ public:
 		DecreaseDateByOneYear(*this);
 	}
 
-	static clsDate DecreaseDateByXYears(short Years, clsDate &Date)
+	static clsDate DecreaseDateByXYears(short Years, clsDate& Date)
 	{
 
 		Date.Year -= Years;
@@ -905,10 +927,10 @@ public:
 
 	void DecreaseDateByXYears(short Years)
 	{
-		DecreaseDateByXYears(Years ,*this);
+		DecreaseDateByXYears(Years, *this);
 	}
 
-	static clsDate DecreaseDateByOneDecade(clsDate &Date)
+	static clsDate DecreaseDateByOneDecade(clsDate& Date)
 	{
 		//Period of 10 years
 		Date.Year -= 10;
@@ -920,7 +942,7 @@ public:
 		DecreaseDateByOneDecade(*this);
 	}
 
-	static clsDate DecreaseDateByXDecades(short Decades, clsDate &Date)
+	static clsDate DecreaseDateByXDecades(short Decades, clsDate& Date)
 	{
 
 		Date.Year -= Decades * 10;
@@ -932,7 +954,7 @@ public:
 		DecreaseDateByXDecades(Decades, *this);
 	}
 
-	static clsDate DecreaseDateByOneCentury(clsDate &Date)
+	static clsDate DecreaseDateByOneCentury(clsDate& Date)
 	{
 		//Period of 100 years
 		Date.Year -= 100;
@@ -944,7 +966,7 @@ public:
 		DecreaseDateByOneCentury(*this);
 	}
 
-	static clsDate DecreaseDateByOneMillennium(clsDate &Date)
+	static clsDate DecreaseDateByOneMillennium(clsDate& Date)
 	{
 		//Period of 1000 years
 		Date.Year -= 1000;
@@ -1101,7 +1123,7 @@ public:
 
 	}
 
-	bool IsDateAfterDate2( clsDate Date2)
+	bool IsDateAfterDate2(clsDate Date2)
 	{
 		return IsDate1AfterDate2(*this, Date2);
 	}
@@ -1124,12 +1146,11 @@ public:
 
 	}
 
-	enDateCompare CompareDates( clsDate Date2)
+	enDateCompare CompareDates(clsDate Date2)
 	{
 		return CompareDates(*this, Date2);
 	}
 
-	
+
 
 };
-
